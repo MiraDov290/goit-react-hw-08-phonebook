@@ -1,42 +1,57 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectContacts } from 'redux/selectors';
-import { fetchContacts } from '../../redux/operations';
+import { useDispatch } from "react-redux";
+// import { Loyout } from '../Loyout/Loyut';
+import { PrivateRoute } from '../PrivateRoute';
+import { RestrictedRoute } from '../RestrictedRoute/RestrictedRoute';
+import { refreshUser } from 'redux/auth/operations';
+import { useAuth } from '../../hooks/useAuth';
 
-import { Container, Title, SubTitle, Wrapper } from './App.styled';
-import ContactForm from '../ContactForm/ContactForm';
-import ContactList from '../ContactList/ContactList';
-import Filter from '../Filter/Filter';
+import { Wrapper } from './App.styled';
+import { Route, Routes } from "react-router-dom";
+
+
+const Home = lazy(() => import('page/Home'));
+const Register = lazy(() => import('page/Register'));
+const Login = lazy(() => import('page/Login'));
+const Contacts = lazy(() => import('page/Contacts'));
 
     
-const App = () => {
-  //використання селектора selectContacts для отримання списку контактів з Redux-сховища
-  const contacts = useSelector(selectContacts);
-  const dispatch = useDispatch();
+export const App = () => {
+  const dispatch = useDispatch();//отримуємо функцію dispatch для відправки дії до Redus store
+  const { isRefreshing } = useAuth;//отримуємо стан футентифікації користувача
 
   useEffect(() => {
-    //запуск асинхронної Thunk-дії fetchContacts при монтуванні компонента
-    dispatch(fetchContacts());
+    dispatch(refreshUser());//викликаємо функцію оновлення користувача при монтажі компонента або зміні dispatch
   }, [dispatch]);
 
-    return (
-      <Container>
-        <Title>Phonebook</Title>
-        <ContactForm/>
-        <SubTitle>Contacts</SubTitle>
-        {contacts.length > 0 ? (
-          // якщо є контакти показує компонент фільтрації
-          <Filter/>
+  return isRefreshing ? (
+    <p>Оновлення користувача...</p>
         ) : (
-            //якщо немає контаків виводить повідомлення про вілдсутність контактів
-          <Wrapper>Your phonebook is empty. Add first contact!</Wrapper>
-        )}
-        {contacts.length > 0 && (
-          // якщо є контакти показує компонент списку контактів
-          <ContactList/>
-        )}
-      </Container>
+      <Wrapper>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            {/*Головна сторінка*/}
+            <Route index element={<Home />} />
+            {/*Сторінка реєхстрації користувача*/}
+            <Route path="/register"
+              element={
+              <RestrictedRoute redirectTo="/login" component={<Register/>}/>
+            }
+            />
+            {/*Сторінка входу користувача*/}
+            <Route path="/login" element={
+              <RestrictedRoute redirectTo="/contacts" component={<Login/>}/>
+            }
+            />
+            {/*Сторінка контактів доступна тільки для автрризації користувача*/}
+            <Route path="/contacts" element={
+              <PrivateRoute redirectTo="/login" component={<Contacts />} />
+            }
+            />
+          </Route>
+          {/*Маршрут за замовчуванням*/}
+          <Route path="*" element={<Home/>} />
+        </Routes>
+          </Wrapper>
     );
   }
-
-export default App;
