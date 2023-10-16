@@ -2,13 +2,13 @@ import { Div, Label, Input } from './Filter.styled';
 
 // import { nanoid } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectFilter } from 'redux/selectors';
-import { changeFilter } from 'redux/filterSlice';
+import { selectFilter } from 'redux/filter/selectors';
+import { changeFilter } from 'redux/filter/filterSlice';
 
 // const filterInputId = nanoid();
 
 // Компонент фільтрації контактів
-const Filter = () => {
+export const Filter = () => {
   const value = useSelector(selectFilter);
   const dispatch = useDispatch();
 
@@ -33,5 +33,3 @@ const Filter = () => {
     </Div>
   );
 };
-
-export default Filter;
