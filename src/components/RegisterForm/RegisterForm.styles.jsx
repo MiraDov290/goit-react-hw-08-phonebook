@@ -6,7 +6,7 @@ export const Form = styled.form`
   width: 400px;
   padding: 12px;
   background-color: rgba(0, 0, 0, 0.6);
-  border: 3px solid #f08080;
+  border: 3px solid rgba(0, 0, 0, 0.6);
   border-radius: 4px;
   margin: 0 auto;
 `;
@@ -15,7 +15,7 @@ export const Label = styled.label`
   display: flex;
   flex-direction: column;
   margin-bottom: 16px;
-  color: #f08080;
+  color: rgba(0, 0, 0, 0.6);
   font-size: 20px;
 `;
 

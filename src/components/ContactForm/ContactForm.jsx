@@ -66,8 +66,8 @@ export const ContactForm = () => {
             placeholder="Введіть ім'я"
             value={name}
             onChange={handleChange}
-            // pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            pattern="^[^\d]+$"
+            pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            // pattern="^[^\d]+$"
             title="Ім'я має містити лише літери, апострофи, дефіси та відступи"
             required
           />
@@ -81,8 +81,8 @@ export const ContactForm = () => {
             placeholder="Введіть номер телефону"
             value={number}
             onChange={handleChange}
-            //  pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
-            pattern="\+\d{12}"
+             pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
+            // pattern="\+\d{12}"
             minlength="13"
             maxlength="13"
             title="Номер телефону має починатися з +, а потім 12 цифр"
