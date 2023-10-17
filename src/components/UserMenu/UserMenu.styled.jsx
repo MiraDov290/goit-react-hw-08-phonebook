@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
 
 export const Text = styled.p`
   font-weight: 700;
-  color: #f08080;
+  color:rgba(0, 0, 0, 0.6);
   font-size: 20px;
 `;
 
@@ -17,8 +17,8 @@ export const Button = styled.button`
   font: inherit;
   cursor: pointer;
   border-radius: 4px 8px;
-  border: 3px solid #f08080;
-  color: #f08080;
+  border: 3px solid rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 0.6);
   font-size: 20px;
   display: flex;
   align-items: center;
