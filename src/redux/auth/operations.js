@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
-axios.defaults.baseURL = 'https://phonebook-db-2lk4.onrender.com/';
+// axios.defaults.baseURL = '';
 
 const setAuthHeader = token => {
   // Встановлення заголовка авторизації у вихідних параметрах запиту
@@ -20,7 +20,7 @@ export const register = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       // Виконання POST-запиту на реєстрацію користувача
-      const res = await axios.post('/users/register', credentials); //signup
+      const res = await axios.post('/users/signup', credentials); //signup
       console.log(res.data);
       setAuthHeader(res.data.token); // Встановлення отриманого токена авторизації у заголовок
       return res.data; // Повернення даних з відповіді сервера
